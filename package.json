@@ -1,0 +1,51 @@
+{
+  "name": "@spersico/skill-gate",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Per-machine skill gating for Pi: selects which skills load from declarative policies.",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "skill-gate",
+    "skills"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@forgejo.minimi.iliketrains.xyz:222/spersico/skill-gate.git"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "skill-gate.example.json"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.4.0",
+    "@earendil-works/pi-tui": "1.4.0",
+    "@types/node": "^24.12.4",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "typescript": "7.1.0-beta"
+  },
+  "scripts": {
+    "lint:all": "oxfmt --check . && oxlint --deny-warnings .",
+    "test": "node --experimental-strip-types --test \"tests/*.test.ts\"",
+    "types:check": "tsc --noEmit"
+  }
+}

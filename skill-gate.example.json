@@ -1,0 +1,14 @@
+{
+  "defaultAction": "block",
+  "machines": {
+    "your-machine-hostname": {
+      "defaultAction": "allow",
+      "roots": {
+        "/absolute/path/to/project/.agents/skills": {
+          "defaultAction": "block",
+          "exceptions": ["trusted-skill", "team/*"]
+        }
+      }
+    }
+  }
+}
