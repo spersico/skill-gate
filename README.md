@@ -4,33 +4,33 @@
 
 ## Install
 
-Use it as a Pi package (submodule or plain checkout) and register it:
+From any machine with Pi installed:
 
-```json
-{
-  "packages": ["./packages/skill-gate"]
-}
+```bash
+pi install git:github.com/spersico/skill-gate
 ```
 
-`skill-gate.example.json` in this repo is a portable starting config with no credentials.
-
-## Start Pi
+**REQUIRED**: You **need** to start Pi with normal skill discovery disabled so the gate is the only skill source:
 
 ```bash
 pi --no-skills
 ```
 
-The extension reads `~/.pi/agent/extensions/skill-gate.json`. `PI_SKILL_GATE_CONFIG` overrides that location.
+Launching Pi this way is necessary, because Pi doesn't provide a way to disable normal skill discovery through configuration. We disable Pi's automatic skill discovery, to ensure the gate is the only skill source. The gate does not intercept skills contributed by another extension through `resources_discover`, or explicit `--skill` paths; those remain additive.
 
-## Scope
+## How it works
 
-The gate controls only Pi's normal skill discovery. It does not intercept skills contributed by another extension through `resources_discover`, or explicit `--skill` paths; those remain additive.
+By default, skill-gate allows all skills. You can configure it to **block all skills by default** and allow **only** specific skills **per machine** and **per folder root**:
+
+Run `/sync-gates` from the project you want to use. It creates the configuration if it does not exist, discovers Pi's global skills directory, your user-level `~/.agents/skills` directory, and project `.agents/skills` directories, records the current machine, reloads Pi, and displays the resulting status.
+
+The extension reads and writes to `~/.pi/agent/extensions/skill-gate.json`. `PI_SKILL_GATE_CONFIG` overrides that location. `skill-gate.example.json` in this repo is a portable starting config with no credentials.
 
 ## First setup and synchronization
 
 Run `/sync-gates` from the project you want to use. It creates the configuration if it does not exist, discovers Pi's global skills directory, your user-level `~/.agents/skills` directory, and project `.agents/skills` directories, records the current machine, reloads Pi, and displays the resulting status.
 
-Run `/sync-gates` again after adding or removing skill roots. Skills on disk are evaluated live against the policy; no inventory is stored.
+Run `/sync-gates` again after adding or removing skill roots. Skills on disk are evaluated live against the policy.
 
 Use `/skill-gate-status` to inspect the current machine's policies and selected skills without changing the configuration.
 
@@ -70,20 +70,3 @@ Environment overrides:
 
 - `PI_SKILL_GATE_CONFIG` — config file location (default: `<agent-dir>/extensions/skill-gate.json`).
 - `PI_CODING_AGENT_DIR` — agent directory used for default config and global skills discovery.
-
-## Layout
-
-- `src/config.ts` — config parsing, defaults, load/save
-- `src/resolve.ts` — on-disk discovery (symlinks followed, like pi) and policy selection
-- `src/sync.ts` — root discovery and `syncSkillGate`
-- `src/status.ts` — status payload and transcript rendering
-- `src/index.ts` — extension wiring (`resources_discover`, `/sync-gates`, `/skill-gate-status`)
-- `tests/` — per-module tests plus shared fixtures
-
-## Develop
-
-```bash
-pnpm --dir packages/skill-gate types:check
-pnpm --dir packages/skill-gate test
-pnpm --dir packages/skill-gate lint:all
-```

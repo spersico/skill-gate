@@ -1,6 +1,8 @@
 {
   "name": "@spersico/skill-gate",
   "version": "0.1.0",
+  "license": "MIT",
+  "packageManager": "pnpm@12.15.0",
   "type": "module",
   "description": "Per-machine skill gating for Pi: selects which skills load from declarative policies.",
   "keywords": [
@@ -11,11 +13,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@forgejo.minimi.iliketrains.xyz:222/spersico/skill-gate.git"
+    "url": "git+https://github.com/spersico/skill-gate.git"
   },
   "files": [
     "src",
     "README.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
     "skill-gate.example.json"
   ],
   "pi": {
