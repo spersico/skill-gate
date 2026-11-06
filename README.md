@@ -22,7 +22,7 @@ Launching Pi this way is necessary, because Pi doesn't provide a way to disable 
 
 By default, skill-gate allows all skills. You can configure it to **block all skills by default** and allow **only** specific skills **per machine** and **per folder root**:
 
-Run `/sync-gates` from the project you want to use. It creates the configuration if it does not exist, discovers Pi's global skills directory, your user-level `~/.agents/skills` directory, and project `.agents/skills` directories, records the current machine, reloads Pi, and displays the resulting status.
+See [First setup and synchronization](#first-setup-and-synchronization) for `/sync-gates`.
 
 The extension reads and writes to `~/.pi/agent/extensions/skill-gate.json`. `PI_SKILL_GATE_CONFIG` overrides that location. `skill-gate.example.json` in this repo is a portable starting config with no credentials.
 
